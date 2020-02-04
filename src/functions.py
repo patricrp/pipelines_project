@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 import matplotlib.pyplot as plt
 from fpdf import FPDF 
 import pandas as pd
-import matplotlib.pyplot as plt
 import sys
+
 #Function to get the video id from the url
 load_dotenv()
 def video_id(url):
@@ -38,6 +38,7 @@ def requestYoutube(id_video, token):
         raise ValueError("Bad Response")
     return res.json()
 
+#Function to get video date
 def requestYoutubeYear(id_video, token):
     token = os.getenv("YOUTUBE_APIKEY")
     if not token:
@@ -55,21 +56,21 @@ def requestYoutubeYear(id_video, token):
         raise ValueError("Bad Response")
     return res.json()
 
-
+#Get total views for a country, year
 def totalViews(pais,year):
     df = pd.read_csv('output/data.csv', dtype = 'str') 
     Visualizaciones = df[(df['Pais'] == f'{pais}') & (df['Year'] == f'{str(year)}')]
     return Visualizaciones['Visualizaciones'].astype('int').sum()
 
-
+#Get total views for a country group by year
 '''def viewsPerYear(pais):
-    df = pd.read_csv('output/data.csv')
+    df = pd.read_csv('output/data.csv', dtype = 'str')
     VisualizacionesPorYear = df[(df['Pais'] == f'{pais}')]
-    visualizacionesYouTube = VisualizacionesPorYear.groupby('Year').agg({'Visualizaciones':'sum'}).plot.bar()
+    visualizacionesYouTube = VisualizacionesPorYear.groupby('Year').agg({'Visualizaciones':'sum'}).astype('int').plot.bar()
     plt.savefig('visualizaciones.png')
     return VisualizacionesPorYear
 
-
+#Create PDF
 def createPDF():
     pdf = FPDF('P','mm','A4')
     pdf.add_page()
