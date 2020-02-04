@@ -57,13 +57,13 @@ def requestYoutubeYear(id_video, token):
 
 
 def totalViews(pais,year):
-    df = pd.read_csv('/output/data.csv')
-    Visualizaciones = df[(df['Pais'] == f'{pais}') & (df['Year'] == f'{year}')]
-    return Visualizaciones['Visualizaciones'].sum()
+    df = pd.read_csv('output/data.csv', dtype = 'str') 
+    Visualizaciones = df[(df['Pais'] == f'{pais}') & (df['Year'] == f'{str(year)}')]
+    return Visualizaciones['Visualizaciones'].astype('int').sum()
 
 
-def viewsPerYear(pais):
-    df = pd.read_csv('/output/data.csv')
+'''def viewsPerYear(pais):
+    df = pd.read_csv('output/data.csv')
     VisualizacionesPorYear = df[(df['Pais'] == f'{pais}')]
     visualizacionesYouTube = VisualizacionesPorYear.groupby('Year').agg({'Visualizaciones':'sum'}).plot.bar()
     plt.savefig('visualizaciones.png')
@@ -74,4 +74,4 @@ def createPDF():
     pdf = FPDF('P','mm','A4')
     pdf.add_page()
     pdf.image('visualizaciones.png')
-    return pdf.output("visualizacionesYouTube.pdf",'F')
+    return pdf.output("visualizacionesYouTube.pdf",'F')'''

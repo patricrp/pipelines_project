@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from src.functions import (totalViews, viewsPerYear)
+from src.functions import totalViews
 
 def main():
     pass 
@@ -28,4 +28,4 @@ if __name__ == "__main__":
     args=parser()
     totalViews(args.pais, args.year)
     viewsPerYear(args.pais)
-    createPDF
+    #createPDF
